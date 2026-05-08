@@ -1,8 +1,6 @@
 :root {
   --bg: #050813;
   --bg-2: #08101f;
-  --panel: rgba(255, 255, 255, 0.075);
-  --panel-strong: rgba(255, 255, 255, 0.12);
   --text: #f7f8fc;
   --muted: #b3bdd1;
   --faint: #78849c;
@@ -928,10 +926,6 @@ select:focus {
     color: #111827;
     background: #ffffff;
     border-color: #d5d8df;
-  }
-
-  .results-card {
-    border: 0;
   }
 
   .roadmap-details {
