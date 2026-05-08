@@ -1,6 +1,6 @@
 # Rousix Surplus Ownership Planner
 
-This is a polished static prototype for demonstrating a surplus-based ownership roadmap.
+A static prototype for demonstrating a surplus-based ownership planning experience.
 
 ## What it does
 
@@ -13,25 +13,25 @@ A visitor enters:
 - a planning timeline
 - a machine tier to discuss
 
-The prototype generates:
+The app generates:
 
 - direct contribution coverage
-- planning gap
+- remaining planning gap
 - cash-only monthly target
 - suggested discussion tier
-- plain-English explanation
-- guided roadmap with expandable stage explanations
+- plain-English summary
+- expandable roadmap stages
 
-## Roadmap structure
+## Visitor-facing roadmap
 
-Each roadmap stage explains:
+Each stage explains:
 
-1. What this stage means
-2. What the visitor should review
-3. What Rousix could discuss
-4. What this stage does not promise
+1. What happens here
+2. What to review
+3. How Rousix may help
+4. Important note
 
-## Important disclaimer
+## Disclaimer
 
 This app is for educational and marketing demonstration purposes only.
 
@@ -53,11 +53,11 @@ All calculations are simplified planning estimates based only on the numbers ent
 
 ## Files
 
-- `index.html` — page structure
-- `styles.css` — visual design
-- `app.js` — planner logic
-- `README.md` — project description
+- `index.html`
+- `styles.css`
+- `app.js`
+- `README.md`
 
 ## Deployment
 
-This project is designed for GitHub Pages using branch deployment from the repository root.
+Designed for GitHub Pages using branch deployment from the repository root.
