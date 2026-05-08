@@ -1,33 +1,62 @@
 # Rousix Surplus Ownership Planner
 
-A polished static prototype for demonstrating a surplus-based ownership roadmap.
+This is a polished static prototype for demonstrating a surplus-based ownership roadmap.
 
-## Purpose
+## What it does
 
-This is a marketing and education demo. A visitor enters an ownership goal, starting contribution, monthly contribution, planning timeline, and machine tier. The app generates a visual planning snapshot using this sequence:
+A visitor enters:
 
-Contribution → Surplus → Liquidity → Appreciation → Ownership
+- an ownership goal
+- a target price
+- a starting contribution
+- a monthly contribution
+- a planning timeline
+- a machine tier to discuss
+
+The prototype generates:
+
+- direct contribution coverage
+- planning gap
+- cash-only monthly target
+- suggested discussion tier
+- plain-English explanation
+- guided roadmap with expandable stage explanations
+
+## Roadmap structure
+
+Each roadmap stage explains:
+
+1. What this stage means
+2. What the visitor should review
+3. What Rousix could discuss
+4. What this stage does not promise
 
 ## Important disclaimer
 
-This app does not provide financial, investment, tax, legal, mining, staking, credit, lending, or accounting advice.
+This app is for educational and marketing demonstration purposes only.
 
-It does not predict:
+It does not provide financial, investment, tax, legal, credit, lending, mining, staking, or accounting advice.
+
+It does not predict or guarantee:
+
 - profits
 - returns
 - mining output
 - staking output
 - appreciation
 - liquidity
+- financing approval
+- asset purchase
 - ownership outcomes
 
-All calculations are simplified educational estimates based only on the numbers entered by the visitor.
+All calculations are simplified planning estimates based only on the numbers entered by the visitor.
 
 ## Files
 
 - `index.html` — page structure
 - `styles.css` — visual design
 - `app.js` — planner logic
+- `README.md` — project description
 
 ## Deployment
 
