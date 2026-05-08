@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Rousix Surplus Ownership Planner</title>
+
+  <meta
+    name="description"
+    content="A prototype planning tool that helps visitors visualize a surplus-based ownership roadmap for homes, vehicles, equipment, workstations, and business assets."
+  />
+
+  <meta property="og:title" content="Rousix Surplus Ownership Planner" />
+  <meta
+    property="og:description"
+    content="Choose an ownership goal and generate an educational surplus pathway roadmap."
+  />
+  <meta property="og:type" content="website" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a href="#top" class="brand" aria-label="Rousix Surplus Ownership Planner">
+        <span class="brand-mark">R</span>
+        <span class="brand-text">
+          <strong>Rousix</strong>
+          <small>Surplus Ownership Planner</small>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#planner">Planner</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#disclaimer">Disclaimer</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Interactive prototype demo</p>
+
+          <h1>Build a visual path from contribution to ownership.</h1>
+
+          <p class="hero-lede">
+            Choose a goal, enter your starting point, and generate a simple
+            surplus pathway roadmap. This prototype shows how onboarding,
+            contribution planning, liquidity awareness, and ownership goals can
+            be explained in a clear, modern interface.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#planner">Start planning</a>
+            <a class="button button-secondary" href="#how-it-works">See the concept</a>
+          </div>
+
+          <div class="hero-note">
+            <strong>Demo note:</strong>
+            This planner is educational. It does not calculate real mining output,
+            investment returns, appreciation, or financial performance.
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="Surplus pathway preview">
+          <div class="orbit-card">
+            <span class="orbit-label">Pathway</span>
+
+            <ol class="pathway-list">
+              <li>
+                <span>01</span>
+                <strong>Contribution</strong>
+                <small>Define starting capital and monthly participation.</small>
+              </li>
+              <li>
+                <span>02</span>
+                <strong>Surplus</strong>
+                <small>Identify the ownership gap to be planned around.</small>
+              </li>
+              <li>
+                <span>03</span>
+                <strong>Liquidity</strong>
+                <small>Map a structured planning timeline.</small>
+              </li>
+              <li>
+                <span>04</span>
+                <strong>Appreciation</strong>
+                <small>Mark the stage for representative-guided strategy.</small>
+              </li>
+              <li>
+                <span>05</span>
+                <strong>Ownership</strong>
+                <small>Review readiness and next actions.</small>
+              </li>
+            </ol>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="planner" class="planner-section">
+      <div class="shell">
+        <div class="section-heading">
+          <p class="eyebrow">Prototype calculator</p>
+          <h2>Surplus Ownership Planner</h2>
+          <p>
+            Enter a sample ownership goal. The planner will generate a roadmap
+            and explain the planning gap in plain English.
+          </p>
+        </div>
+
+        <div class="planner-grid">
+          <form class="planner-card" id="plannerForm">
+            <div class="form-header">
+              <h3>Your ownership goal</h3>
+              <p>Use sample numbers or enter your own.</p>
+            </div>
+
+            <div class="sample-row" aria-label="Sample goal buttons">
+              <button type="button" class="sample-button" data-sample="vehicle">
+                Vehicle
+              </button>
+              <button type="button" class="sample-button" data-sample="home">
+                Home
+              </button>
+              <button type="button" class="sample-button" data-sample="equipment">
+                Equipment
+              </button>
+              <button type="button" class="sample-button" data-sample="business">
+                Business
+              </button>
+            </div>
+
+            <div class="field-grid">
+              <label class="field">
+                <span>Goal type</span>
+                <select id="goalType">
+                  <option value="Home">Home</option>
+                  <option value="Vehicle" selected>Vehicle</option>
+                  <option value="Truck">Truck</option>
+                  <option value="Business equipment">Business equipment</option>
+                  <option value="Workstation">Workstation</option>
+                  <option value="Business asset">Business asset</option>
+                  <option value="Custom asset">Custom asset</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>Asset name</span>
+                <input
+                  id="assetName"
+                  type="text"
+                  value="Family vehicle"
+                  maxlength="60"
+                  autocomplete="off"
+                />
+              </label>
+            </div>
+
+            <label class="field">
+              <span>Target ownership price</span>
+              <div class="money-input">
+                <span>$</span>
+                <input
+                  id="targetPrice"
+                  type="number"
+                  value="42000"
+                  min="0"
+                  step="500"
+                  inputmode="decimal"
+                />
+              </div>
+            </label>
+
+            <div class="field-grid">
+              <label class="field">
+                <span>Starting contribution</span>
+                <div class="money-input">
+                  <span>$</span>
+                  <input
+                    id="startingContribution"
+                    type="number"
+                    value="4100"
+                    min="0"
+                    step="100"
+                    inputmode="decimal"
+                  />
+                </div>
+              </label>
+
+              <label class="field">
+                <span>Monthly contribution</span>
+                <div class="money-input">
+                  <span>$</span>
+                  <input
+                    id="monthlyContribution"
+                    type="number"
+                    value="350"
+                    min="0"
+                    step="25"
+                    inputmode="decimal"
+                  />
+                </div>
+              </label>
+            </div>
+
+            <div class="field-grid">
+              <label class="field">
+                <span>Planning timeline</span>
+                <select id="timelineMonths">
+                  <option value="12">12 months</option>
+                  <option value="18">18 months</option>
+                  <option value="24" selected>24 months</option>
+                  <option value="36">36 months</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>Planning pace</span>
+                <select id="pace">
+                  <option value="conservative">Conservative</option>
+                  <option value="balanced" selected>Balanced</option>
+                  <option value="ambitious">Ambitious</option>
+                </select>
+              </label>
+            </div>
+
+            <label class="field">
+              <span>Machine tier to discuss</span>
+              <select id="machineTier">
+                <option value="basic">Rousix Basic Tablet — $1,250+</option>
+                <option value="standard" selected>Rousix Standard — $4,100+</option>
+                <option value="standardPlus">Rousix Standard Plus — $8,250+</option>
+                <option value="premium">Rousix Premium — $12,450+</option>
+                <option value="titan">Rousix Titan — $75,000+</option>
+                <option value="colossus">Rousix Colossus — $150,000+</option>
+                <option value="olympus">Rousix Olympus — $300,000+</option>
+              </select>
+            </label>
+
+            <div class="toggle-card">
+              <label class="check-field">
+                <input id="includeMachineCost" type="checkbox" checked />
+                <span>
+                  Include selected machine price in the planning snapshot
+                </span>
+              </label>
+
+              <p>
+                This does not treat the machine as an investment. It simply helps
+                a visitor understand the full starting commitment they may want
+                to discuss during onboarding.
+              </p>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" id="copySummary" class="button button-secondary">
+                Copy summary
+              </button>
+              <button type="button" id="printPlan" class="button button-primary">
+                Print roadmap
+              </button>
+            </div>
+          </form>
+
+          <section class="results-card" aria-live="polite">
+            <div class="result-top">
+              <p class="eyebrow">Generated roadmap</p>
+              <h3 id="resultTitle">Family vehicle pathway</h3>
+              <p id="resultSubtitle">
+                A balanced 24-month educational planning snapshot.
+              </p>
+            </div>
+
+            <div class="meter-wrap">
+              <div class="meter-header">
+                <span>Direct contribution coverage</span>
+                <strong id="coveragePercent">0%</strong>
+              </div>
+              <div class="meter-track">
+                <div id="coverageBar" class="meter-fill"></div>
+              </div>
+              <p id="coverageNote" class="meter-note">
+                This shows only direct planned contributions, not projected returns.
+              </p>
+            </div>
+
+            <div class="metric-grid">
+              <article class="metric-card">
+                <span>Total planned contribution</span>
+                <strong id="totalContribution">$0</strong>
+                <small>Starting contribution plus monthly contributions.</small>
+              </article>
+
+              <article class="metric-card">
+                <span>Planning gap</span>
+                <strong id="planningGap">$0</strong>
+                <small>Amount left for strategy, savings, or other planning.</small>
+              </article>
+
+              <article class="metric-card">
+                <span>Monthly target</span>
+                <strong id="monthlyTarget">$0</strong>
+                <small>Cash-only amount needed to reach the goal by timeline.</small>
+              </article>
+
+              <article class="metric-card">
+                <span>Suggested discussion tier</span>
+                <strong id="suggestedTier">Standard</strong>
+                <small id="tierReason">Based on goal size and planning pace.</small>
+              </article>
+            </div>
+
+            <div class="status-panel" id="statusPanel">
+              <span id="statusBadge">Planning snapshot</span>
+              <p id="statusText">
+                Enter a goal to generate a plain-English surplus pathway.
+              </p>
+            </div>
+
+            <div id="roadmap" class="roadmap-card">
+              <div class="roadmap-header">
+                <h3>Roadmap</h3>
+                <p id="roadmapSummary">A staged overview will appear here.</p>
+              </div>
+
+              <ol id="timelineList" class="timeline-list"></ol>
+            </div>
+
+            <div class="narrative-card">
+              <h3>Plain-English explanation</h3>
+              <p id="narrativeText"></p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="how-section">
+      <div class="shell">
+        <div class="section-heading">
+          <p class="eyebrow">Marketing concept</p>
+          <h2>How this prototype explains the Rousix idea</h2>
+          <p>
+            The goal is not to produce a financial prediction. The goal is to
+            make a complex idea feel visual, practical, and easy to discuss.
+          </p>
+        </div>
+
+        <div class="concept-grid">
+          <article class="concept-card">
+            <span>01</span>
+            <h3>Goal identification</h3>
+            <p>
+              The visitor chooses what they want to own: a home, car, truck,
+              equipment, workstation, or business asset.
+            </p>
+          </article>
+
+          <article class="concept-card">
+            <span>02</span>
+            <h3>Surplus gap</h3>
+            <p>
+              The planner shows the difference between the target price and the
+              visitor’s direct contribution plan.
+            </p>
+          </article>
+
+          <article class="concept-card">
+            <span>03</span>
+            <h3>Roadmap generation</h3>
+            <p>
+              The app turns the numbers into a simple timeline that can support
+              onboarding and representative-guided planning.
+            </p>
+          </article>
+
+          <article class="concept-card">
+            <span>04</span>
+            <h3>Clear expectations</h3>
+            <p>
+              The interface avoids return promises and keeps the demo framed as
+              an educational planning tool.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="disclaimer" class="disclaimer-section">
+      <div class="shell">
+        <div class="disclaimer-card">
+          <h2>Prototype disclaimer</h2>
+          <p>
+            This Surplus Ownership Planner is a demonstration interface for
+            educational and marketing purposes only. It does not provide
+            financial, investment, tax, legal, credit, lending, mining, staking,
+            or accounting advice. It does not predict appreciation, mining
+            output, staking output, liquidity, profitability, returns, or
+            ownership outcomes.
+          </p>
+
+          <p>
+            All calculations are simplified planning estimates based only on the
+            numbers entered by the visitor. Any real Rousix onboarding,
+            subscription, machine purchase, lease-back discussion, or ownership
+            strategy should be reviewed directly with a qualified Rousix
+            representative and appropriate professional advisors.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <p>
+        © <span id="year"></span> Rousix Surplus Ownership Planner Prototype.
+      </p>
+      <p>
+        Static GitHub Pages demo. No visitor data is stored.
+      </p>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">
+    Summary copied.
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
