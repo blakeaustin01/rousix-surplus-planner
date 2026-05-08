@@ -4,49 +4,49 @@ const machineTiers = {
     shortName: "Basic Tablet",
     price: 1250,
     capacity: "entry mobile access",
-    bestFor: "students, first-time participants, and price-conscious households"
+    bestFor: "first-time planning conversations and lower starting amounts"
   },
   standard: {
     name: "Rousix Standard",
     shortName: "Standard",
     price: 4100,
-    capacity: "1× baseline capacity",
-    bestFor: "everyday households and simple ownership goals"
+    capacity: "baseline capacity",
+    bestFor: "everyday household goals and simple starting plans"
   },
   standardPlus: {
     name: "Rousix Standard Plus",
     shortName: "Standard Plus",
     price: 8250,
-    capacity: "2× enhanced capacity",
-    bestFor: "larger goals, stronger monthly participation, and faster planning conversations"
+    capacity: "enhanced capacity",
+    bestFor: "larger goals and stronger monthly contribution plans"
   },
   premium: {
     name: "Rousix Premium",
     shortName: "Premium",
     price: 12450,
-    capacity: "3× high-performance capacity",
-    bestFor: "serious operators and higher-value ownership goals"
+    capacity: "high-performance capacity",
+    bestFor: "higher-value goals and more serious planning conversations"
   },
   titan: {
     name: "Rousix Titan",
     shortName: "Titan",
     price: 75000,
     capacity: "enterprise workstation capacity",
-    bestFor: "boutique firms and institutional-grade planning conversations"
+    bestFor: "businesses and larger-scale planning conversations"
   },
   colossus: {
     name: "Rousix Colossus",
     shortName: "Colossus",
     price: 150000,
-    capacity: "cluster array system capacity",
-    bestFor: "scaled operators, syndicates, and enterprise collectives"
+    capacity: "cluster array capacity",
+    bestFor: "scaled operators and institutional conversations"
   },
   olympus: {
     name: "Rousix Olympus",
     shortName: "Olympus",
     price: 300000,
-    capacity: "data-center-in-a-box capacity",
-    bestFor: "large-scale institutional infrastructure conversations"
+    capacity: "large-scale infrastructure capacity",
+    bestFor: "major infrastructure and institutional planning"
   }
 };
 
@@ -108,9 +108,11 @@ function money(value) {
 
 function cleanNumber(value) {
   const number = Number(value);
+
   if (!Number.isFinite(number) || number < 0) {
     return 0;
   }
+
   return number;
 }
 
@@ -147,21 +149,21 @@ function paceLabel(pace) {
 }
 
 function chooseSuggestedTier(targetPrice, monthlyContribution, timelineMonths) {
-  const monthlyTotal = monthlyContribution * timelineMonths;
+  const totalMonthlyPlan = monthlyContribution * timelineMonths;
 
   if (targetPrice <= 15000 || monthlyContribution < 200) {
     return machineTiers.basic;
   }
 
-  if (targetPrice <= 55000 || monthlyTotal < 12000) {
+  if (targetPrice <= 55000 || totalMonthlyPlan < 12000) {
     return machineTiers.standard;
   }
 
-  if (targetPrice <= 110000 || monthlyTotal < 24000) {
+  if (targetPrice <= 110000 || totalMonthlyPlan < 24000) {
     return machineTiers.standardPlus;
   }
 
-  if (targetPrice <= 300000 || monthlyTotal < 55000) {
+  if (targetPrice <= 300000 || totalMonthlyPlan < 55000) {
     return machineTiers.premium;
   }
 
@@ -176,9 +178,9 @@ function getStatus(monthlyRatio, coverageRatio) {
   if (coverageRatio >= 1) {
     return {
       className: "",
-      badge: "Directly funded",
+      badge: "Fully covered by direct contributions",
       text:
-        "Your direct planned contributions meet or exceed the target amount within this timeline. A real onboarding conversation could focus on timing, documentation, and readiness rather than a major contribution gap."
+        "Your planned direct contributions meet or exceed the target amount within the selected timeline. A real planning conversation could focus on timing, documentation, and readiness."
     };
   }
 
@@ -187,7 +189,7 @@ function getStatus(monthlyRatio, coverageRatio) {
       className: "",
       badge: "Strong planning base",
       text:
-        "Your monthly plan covers a meaningful portion of the target. The remaining gap is the central issue for the planning conversation."
+        "Your monthly contribution covers a meaningful share of the cash-only target. The next step is to review the remaining gap and decide whether the timeline or goal should be adjusted."
     };
   }
 
@@ -196,7 +198,7 @@ function getStatus(monthlyRatio, coverageRatio) {
       className: "is-stretch",
       badge: "Stretch pathway",
       text:
-        "This plan has a visible gap, but it creates a concrete starting point. The next step is to compare timeline, contribution level, tier, and whether the ownership target should be staged."
+        "Your plan creates a real starting point, but the remaining gap is significant. It may help to compare a longer timeline, a higher monthly contribution, a smaller first goal, or a different tier."
     };
   }
 
@@ -204,7 +206,7 @@ function getStatus(monthlyRatio, coverageRatio) {
     className: "is-long-range",
     badge: "Long-range pathway",
     text:
-      "This goal is far beyond the direct contribution plan as entered. The roadmap should be treated as long-range and representative-guided, not as a near-term ownership estimate."
+      "Your current contribution plan is far below the cash-only target. This roadmap should be treated as an early planning tool, not as a near-term ownership estimate."
   };
 }
 
@@ -255,28 +257,28 @@ function calculatePlan() {
 
   const status = getStatus(monthlyRatio, coverageRatio);
   const narrative = buildNarrative(inputs, totals, suggestedTier, status);
-  const roadmap = buildRoadmap(inputs, totals, suggestedTier, status);
+  const roadmap = buildRoadmap(inputs, totals, suggestedTier);
 
   renderPlan(inputs, totals, suggestedTier, status, narrative, roadmap);
 }
 
 function buildNarrative(inputs, totals, suggestedTier, status) {
   const machineSentence = inputs.includeMachineCost
-    ? `Including the selected ${inputs.machineTier.shortName} discussion tier, the starting snapshot is ${money(totals.startingSnapshot)}.`
-    : "The selected machine tier is shown for discussion only and is not included in the contribution math.";
+    ? `With the selected ${inputs.machineTier.shortName} tier included in the starting snapshot, your initial planning amount is ${money(totals.startingSnapshot)}.`
+    : `The selected ${inputs.machineTier.shortName} tier is shown for discussion, but its cost is not included in the contribution math.`;
 
   const gapSentence =
     totals.gap > 0
-      ? `The direct contribution plan leaves a ${money(totals.gap)} planning gap. That gap is the main issue the roadmap is designed to make visible.`
-      : "The direct contribution plan reaches the stated target within the selected timeline before any separate surplus strategy is considered.";
+      ? `After your planned direct contributions, the remaining planning gap is ${money(totals.gap)}.`
+      : "Your direct contribution plan reaches the stated target within the selected timeline.";
 
   return (
-    `${inputs.assetName} is modeled as a ${paceLabel(inputs.pace)} ${inputs.timelineMonths}-month ownership pathway. ` +
+    `Your ${inputs.assetName} plan uses a ${paceLabel(inputs.pace)} ${inputs.timelineMonths}-month timeline. ` +
     `The target price is ${money(inputs.targetPrice)}, with ${money(inputs.startingContribution)} available at the start and ${money(inputs.monthlyContribution)} planned each month. ` +
     `${machineSentence} ` +
     `${gapSentence} ` +
-    `The planner suggests discussing the ${suggestedTier.shortName} tier because it fits the scale of the goal and the current contribution pattern. ` +
-    `Status: ${status.badge}. This is an educational planning snapshot, not a promise of liquidity, appreciation, profit, financing, or final ownership.`
+    `The suggested discussion tier is ${suggestedTier.shortName}, based on the size of the goal and the current contribution pattern. ` +
+    `Status: ${status.badge}. This is an educational planning snapshot, not a promise of liquidity, appreciation, profit, financing, or ownership.`
   );
 }
 
@@ -296,83 +298,86 @@ function getRoadmapRanges(months) {
   };
 }
 
-function buildRoadmap(inputs, totals, suggestedTier, status) {
+function buildRoadmap(inputs, totals, suggestedTier) {
   const ranges = getRoadmapRanges(inputs.timelineMonths);
+
   const gapText = money(totals.gap);
   const contributionText = money(totals.totalContribution);
   const requiredMonthlyText = money(totals.requiredMonthly);
   const currentMonthlyText = money(inputs.monthlyContribution);
+  const targetText = money(inputs.targetPrice);
+  const startingText = money(inputs.startingContribution);
 
   return [
     {
       time: "Month 0",
-      title: "Onboarding and goal confirmation",
+      title: "Goal setup",
       summary:
-        `Define the ${inputs.goalType.toLowerCase()} goal, target price, starting contribution, and selected discussion tier.`,
-      means:
-        `This stage turns a vague ownership goal into a specific planning target. Instead of saying “I want to own something,” the visitor names the asset, enters an estimated price, and identifies the starting contribution available now.`,
+        `Set the target for ${inputs.assetName} and define the starting point.`,
+      happens:
+        `You begin by naming the asset you want to plan around and entering an estimated target price. For this plan, the target is ${targetText} and the starting contribution is ${startingText}.`,
       review:
-        `Review whether ${money(inputs.targetPrice)} is a realistic target price for ${inputs.assetName}, whether ${money(inputs.startingContribution)} is actually available, and whether the selected ${inputs.machineTier.shortName} tier is the right starting point to discuss.`,
-      discuss:
-        `Rousix could discuss goal definition, onboarding steps, machine tier selection, documentation needs, and whether the goal should be treated as immediate, staged, or long-range.`,
-      notPromise:
-        `This stage does not approve the visitor, guarantee ownership, create financing, or promise that the selected machine tier will produce any particular outcome.`
+        `Check whether the target price is realistic, whether the starting contribution is actually available, and whether this goal should be treated as immediate, staged, or long-range.`,
+      help:
+        `Rousix may help clarify the planning goal, explain onboarding steps, review the selected ${inputs.machineTier.shortName} tier, and identify what information would be needed before any real next step.`,
+      note:
+        `This stage does not approve financing, guarantee ownership, or promise that any machine tier will produce a specific result. It only defines the starting point for the roadmap.`
     },
     {
       time: ranges.early,
-      title: "Contribution foundation",
+      title: "Contribution rhythm",
       summary:
-        `Test whether the planned ${currentMonthlyText} monthly contribution is realistic before building the rest of the roadmap around it.`,
-      means:
-        `This stage is about consistency. The planner assumes the visitor contributes ${currentMonthlyText} per month, but the real question is whether that amount can be maintained without making the plan artificial.`,
+        `Begin with a monthly contribution rhythm of ${currentMonthlyText}.`,
+      happens:
+        `This phase focuses on whether your monthly contribution feels sustainable. Your plan currently uses ${currentMonthlyText} per month over a ${inputs.timelineMonths}-month timeline.`,
       review:
-        `Review income timing, household obligations, business cash flow, emergency reserves, and whether the monthly contribution should be lowered, raised, or made more flexible.`,
-      discuss:
-        `Rousix could discuss whether the selected pace is conservative, balanced, or ambitious, and whether the plan should begin with a smaller goal or a longer timeline.`,
-      notPromise:
-        `This stage does not mean that contributions create profit, appreciation, liquidity, or ownership automatically. It only tests whether the contribution base is credible.`
+        `Review whether that monthly amount fits your real budget, income timing, business cash flow, household obligations, and emergency reserves. If it feels too high or too low, the plan can be adjusted.`,
+      help:
+        `Rousix may help compare a smaller starting goal, a longer timeline, a different tier, or a contribution amount that better fits your situation.`,
+      note:
+        `This phase does not create automatic profit, appreciation, liquidity, or ownership. It simply organizes a realistic contribution starting point.`
     },
     {
       time: ranges.middle,
-      title: "Surplus planning checkpoint",
+      title: "Surplus gap review",
       summary:
-        `Compare the direct contribution path with the ownership target and identify the remaining ${gapText} planning gap.`,
-      means:
-        `This is the stage you were asking about. It is not just a vague instruction to “review the gap.” It means the app compares the target price with the direct contribution plan. In this case, the plan produces ${contributionText} in direct contributions, leaving a ${gapText} gap.`,
+        `See what remains after your direct planned contributions.`,
+      happens:
+        `This checkpoint shows the difference between your ownership target and your planned direct contributions. Your current plan produces ${contributionText} in direct contributions, leaving a remaining planning gap of ${gapText}.`,
       review:
-        `Review the three main adjustment levers: increase the monthly contribution above ${currentMonthlyText}, extend the timeline, or revise the ownership target. For a cash-only path, the monthly target would be about ${requiredMonthlyText}.`,
-      discuss:
-        `Rousix could discuss whether the gap should be handled through staged ownership, a different machine tier, a different timeline, or a representative-guided surplus strategy. This is where the roadmap becomes a planning conversation rather than a simple calculator.`,
-      notPromise:
-        `This checkpoint does not predict that the gap will be filled by mining, staking, appreciation, liquidity, or market performance. It only makes the gap visible so it can be discussed honestly.`
+        `Review the main adjustment choices: increase the monthly contribution, extend the timeline, choose a smaller first goal, or revisit the discussion tier. For a cash-only path, the monthly target would be about ${requiredMonthlyText}.`,
+      help:
+        `Rousix may help turn the gap into a structured planning conversation. That could include comparing timelines, contribution levels, staged goals, or whether the ${suggestedTier.shortName} tier is a better discussion fit.`,
+      note:
+        `This checkpoint does not predict that the gap will be filled by mining, staking, appreciation, liquidity, or market performance. It only makes the gap clear enough to discuss.`
     },
     {
       time: ranges.review,
-      title: "Liquidity and strategy review",
+      title: "Strategy review",
       summary:
-        `Use the roadmap as a structured review point rather than as a promise that liquidity will exist by this date.`,
-      means:
-        `This stage marks the point where the original plan should be compared with actual progress. The visitor should ask whether the contribution base, machine tier, and timeline still match the ownership goal.`,
+        `Compare the original plan with the progress needed to keep moving.`,
+      happens:
+        `This stage is a review point. You look back at the original target, the contribution plan, the selected timeline, and the remaining gap to decide whether the roadmap still makes sense.`,
       review:
-        `Review actual contributions made, remaining gap, documentation status, risk tolerance, and whether the goal still makes sense at the same size and timeline.`,
-      discuss:
-        `Rousix could discuss available program options, operational realities, participation structure, and whether the visitor should revise the pathway before moving further.`,
-      notPromise:
-        `This stage does not mean liquidity has been created, that assets have appreciated, or that the visitor is ready to buy the target asset. It is a review stage, not an outcome guarantee.`
+        `Review whether the contribution pace is working, whether the target asset still fits, whether documentation is ready, and whether the timeline should be revised before moving further.`,
+      help:
+        `Rousix may help discuss available program options, operational realities, participation structure, and whether the plan should continue, pause, or be redesigned.`,
+      note:
+        `This stage does not mean liquidity has been created or that the asset is ready to purchase. It is a review point for understanding progress and deciding what should happen next.`
     },
     {
       time: ranges.final,
-      title: "Ownership readiness review",
+      title: "Readiness check",
       summary:
-        `Compare the original goal with the final contribution base, remaining gap, and next steps.`,
-      means:
-        `This is the final checkpoint in the selected timeline. It asks whether the visitor is closer to ownership, whether the target should be revised, and whether the next step is purchase readiness, more planning, or a reset.`,
+        `Decide whether the next step is purchase planning, more time, or a revised goal.`,
+      happens:
+        `At the end of the selected timeline, you compare the original goal with the planned contribution base and the remaining gap. In this plan, the target is ${targetText}, planned direct contributions are ${contributionText}, and the remaining gap is ${gapText}.`,
       review:
-        `Review the original ${money(inputs.targetPrice)} target, the planned ${contributionText} contribution base, the remaining ${gapText} gap, and whether the plan has become stronger or needs to be redesigned.`,
-      discuss:
-        `Rousix could discuss whether the visitor is ready for a real-world next step, whether the plan needs professional review, and whether the pathway should continue into another planning cycle.`,
-      notPromise:
-        `This stage does not mean the visitor now owns the asset. It does not promise approval, financing, profit, liquidity, or final acquisition. It simply organizes the readiness conversation.`
+        `Review whether the goal is closer, whether the plan needs more time, whether a smaller or staged ownership target makes more sense, and whether professional advice is needed before any real-world decision.`,
+      help:
+        `Rousix may help organize the next planning conversation, identify missing information, and decide whether the roadmap should move into another cycle.`,
+      note:
+        `This stage does not mean you now own the asset. It does not guarantee approval, financing, profit, liquidity, or acquisition. It is a readiness review.`
     }
   ];
 }
@@ -382,18 +387,19 @@ function renderPlan(inputs, totals, suggestedTier, status, narrative, roadmap) {
 
   $("resultTitle").textContent = `${inputs.assetName} pathway`;
   $("resultSubtitle").textContent =
-    `A ${paceLabel(inputs.pace)} ${inputs.timelineMonths}-month educational planning snapshot.`;
+    `A ${paceLabel(inputs.pace)} ${inputs.timelineMonths}-month planning snapshot.`;
 
   $("coveragePercent").textContent = percent(cappedCoverage);
   $("coverageBar").style.width = percent(cappedCoverage);
 
   $("coverageNote").textContent =
-    `${money(totals.totalContribution)} in direct planned contributions toward a ${money(inputs.targetPrice)} target. This does not include projected returns.`;
+    `${money(totals.totalContribution)} in planned direct contributions toward a ${money(inputs.targetPrice)} target. This does not include projected returns.`;
 
   $("totalContribution").textContent = money(totals.totalContribution);
   $("planningGap").textContent = money(totals.gap);
   $("monthlyTarget").textContent = money(totals.requiredMonthly);
   $("suggestedTier").textContent = suggestedTier.shortName;
+
   $("tierReason").textContent =
     `${suggestedTier.capacity}; often discussed for ${suggestedTier.bestFor}.`;
 
@@ -460,10 +466,10 @@ function renderRoadmap(roadmap) {
     const detailGrid = document.createElement("div");
     detailGrid.className = "detail-grid";
 
-    detailGrid.appendChild(makeDetailCard("What this stage means", item.means));
-    detailGrid.appendChild(makeDetailCard("What the visitor should review", item.review));
-    detailGrid.appendChild(makeDetailCard("What Rousix could discuss", item.discuss));
-    detailGrid.appendChild(makeDetailCard("What this stage does not promise", item.notPromise, true));
+    detailGrid.appendChild(makeDetailCard("What happens here", item.happens));
+    detailGrid.appendChild(makeDetailCard("What to review", item.review));
+    detailGrid.appendChild(makeDetailCard("How Rousix may help", item.help));
+    detailGrid.appendChild(makeDetailCard("Important note", item.note, true));
 
     details.appendChild(detailGrid);
 
@@ -527,10 +533,10 @@ function buildCopyText() {
       return [
         `${item.time}: ${item.title}`,
         `Summary: ${item.summary}`,
-        `Means: ${item.means}`,
-        `Review: ${item.review}`,
-        `Rousix could discuss: ${item.discuss}`,
-        `Does not promise: ${item.notPromise}`
+        `What happens here: ${item.happens}`,
+        `What to review: ${item.review}`,
+        `How Rousix may help: ${item.help}`,
+        `Important note: ${item.note}`
       ].join("\n");
     })
     .join("\n\n");
@@ -545,13 +551,13 @@ function buildCopyText() {
     `Monthly contribution: ${money(inputs.monthlyContribution)}`,
     `Timeline: ${inputs.timelineMonths} months`,
     `Total planned contribution: ${money(totals.totalContribution)}`,
-    `Planning gap: ${money(totals.gap)}`,
+    `Remaining planning gap: ${money(totals.gap)}`,
     `Cash-only monthly target: ${money(totals.requiredMonthly)}`,
     `Selected machine tier: ${inputs.machineTier.name}`,
     `Suggested discussion tier: ${suggestedTier.name}`,
     `Status: ${status.badge}`,
     "",
-    "Plain-English explanation:",
+    "Plain-English summary:",
     narrative,
     "",
     "Guided roadmap:",
